@@ -28,6 +28,16 @@
                   <td><%= simple_format @todo.detail %></td>
                 </tr>
               </table>
+              <% if current_user.already_favorited?(@todo) %>
+                <%= link_to todo_favorites_path(@todo), method: :delete do %>
+                  <i class="fas fa-heart"></i>
+                <% end %>
+              <% else %>
+                <%= link_to todo_favorites_path(@todo), method: :create do %>
+                  <i class="far fa-heart"></i>
+                <% end %>
+              <% end %>
+              <%= @todo.favorites.count %>
               <% if @todo.user.id == current_user.id %>
                 <%= link_to "編集画面へ", edit_todo_path(@todo), class: "button is-success" %>
               <% end %>
